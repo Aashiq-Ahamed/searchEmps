@@ -66,10 +66,12 @@ export class AppComponent implements OnInit {
     console.log($event);
     const selectedId = $event.option?.value;
     this.selectedEmployee = this.employees.filter(emp=> emp.id == selectedId)[0];
+    this.employeeForm.get('employeeName')?.setValue(this.selectedEmployee.name);
   }
 
   onEmployeeNameSelected($event: MatAutocompleteSelectedEvent) {
     const selectedName = $event.option?.value;
     this.selectedEmployee = this.employees.filter(emp=> emp.name == selectedName)[0];
+    this.employeeForm.get('employeeId')?.setValue(this.selectedEmployee.id);
   }
 }
