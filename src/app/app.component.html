@@ -3,9 +3,9 @@
     <mat-form-field appearance="fill">
       <mat-label>Employee ID</mat-label>
       <input type="text" matInput formControlName="employeeId" [matAutocomplete]="autoId">
-      <mat-autocomplete #autoId="matAutocomplete">
-        <mat-option *ngFor="let id of filteredEmployeeIds | async" [value]="id">
-          {{ id }}
+      <mat-autocomplete #autoId="matAutocomplete" (optionSelected)="onEmployeeIdSelected($event)">
+        <mat-option *ngFor="let employee of filteredEmployeeIds | async" [value]="employee.id">
+          {{ employee.id }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
@@ -13,11 +13,16 @@
     <mat-form-field appearance="fill">
       <mat-label>Employee Name</mat-label>
       <input type="text" matInput formControlName="employeeName" [matAutocomplete]="autoName">
-      <mat-autocomplete #autoName="matAutocomplete">
-        <mat-option *ngFor="let name of filteredEmployeeNames | async" [value]="name">
-          {{ name }}
+      <mat-autocomplete #autoName="matAutocomplete" (optionSelected)="onEmployeeNameSelected($event)">
+        <mat-option *ngFor="let employee of filteredEmployeeNames | async" [value]="employee.name">
+          {{ employee.name }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </form>
+  <div *ngIf="selectedEmployee" class="selected-employee">
+    <p><strong>Selected Employee ID:</strong> {{ selectedEmployee?.id }}</p>
+    <p><strong>Selected Employee Name:</strong> {{ selectedEmployee?.name }}</p>
+  </div>
+
 </div>

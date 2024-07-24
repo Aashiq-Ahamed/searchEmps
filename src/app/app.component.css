@@ -1,24 +1,27 @@
 .main-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Full viewport height */
-  background-color: #f5f5f5; /* Light background color */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
 }
 
 form {
-  width: 300px; /* Set a fixed width for the form */
-  padding: 20px; /* Add some padding around the form */
-  background: white; /* White background for the form */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a floating effect */
-  border-radius: 8px; /* Rounded corners */
+  width: 300px;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 mat-form-field {
-  width: 100%; /* Make the input fields take the full width of the form */
-  margin-bottom: 20px; /* Space between the input fields */
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-.mat-form-field-appearance-fill .mat-form-field-flex {
-  padding: 0 12px;
+.selected-employee {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 16px;
 }
