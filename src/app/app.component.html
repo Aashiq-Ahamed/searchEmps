@@ -1,34 +1,34 @@
-<div class="main-container">
-  <mat-card class="employee-card">
-    <mat-card-header>
-      <mat-card-title>Employee Form</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="employeeForm">
-        <mat-form-field appearance="fill">
-          <mat-label>Employee ID</mat-label>
-          <input type="text" matInput formControlName="employeeId" [matAutocomplete]="autoId">
-          <mat-autocomplete #autoId="matAutocomplete" (optionSelected)="onEmployeeIdSelected($event)">
-            <mat-option *ngFor="let employee of filteredEmployeeIds | async" [value]="employee.id">
-              {{ employee.id }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
+<div class="table-container">
+  <table mat-table [dataSource]="empService.employees" class="mat-elevation-z8">
 
-        <mat-form-field appearance="fill">
-          <mat-label>Employee Name</mat-label>
-          <input type="text" matInput formControlName="employeeName" [matAutocomplete]="autoName">
-          <mat-autocomplete #autoName="matAutocomplete" (optionSelected)="onEmployeeNameSelected($event)">
-            <mat-option *ngFor="let employee of filteredEmployeeNames | async" [value]="employee.name">
-              {{ employee?.name }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
-      <div *ngIf="selectedEmployee" class="selected-employee">
-        <p><strong>Selected Employee ID:</strong> {{ selectedEmployee?.id }}</p>
-        <p><strong>Selected Employee Name:</strong> {{ selectedEmployee?.name }}</p>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let employee"> {{employee.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let employee"> {{employee.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="typeA">
+      <th mat-header-cell *matHeaderCellDef> Type A </th>
+      <td mat-cell *matCellDef="let employee"> {{employee.typeA}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="typeB">
+      <th mat-header-cell *matHeaderCellDef> Type B </th>
+      <td mat-cell *matCellDef="let employee"> {{employee.typeB}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let employee; let i = index">
+        <button mat-button (click)="openEditPopup(i)">Edit</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>

@@ -4,6 +4,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "strictPropertyInitialization": false,
+    "experimentalDecorators": true,   // Ensure this is set to true
+    "emitDecoratorMetadata": true,
     "outDir": "./out-tsc/app",
     "types": []
   },
