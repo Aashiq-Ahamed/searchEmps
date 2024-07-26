@@ -1,0 +1,33 @@
+<div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Employee Form</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="employeeForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Employee ID</mat-label>
+          <input type="text" matInput formControlName="employeeId" [matAutocomplete]="autoId">
+          <mat-autocomplete #autoId="matAutocomplete" (optionSelected)="onEmployeeIdSelected($event)">
+            <mat-option *ngFor="let employee of filteredEmployeeIds | async" [value]="employee.id">
+              {{ employee.id }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Employee Name</mat-label>
+          <input type="text" matInput formControlName="employeeName" [matAutocomplete]="autoName">
+          <mat-autocomplete #autoName="matAutocomplete" (optionSelected)="onEmployeeNameSelected($event)">
+            <mat-option *ngFor="let employee of filteredEmployeeNames | async" [value]="employee.name">
+              {{ employee.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+      <div class="selected-employee">
+        <button mat-raised-button color="primary" mat-dialog-close (click)="onSave()">Save</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
