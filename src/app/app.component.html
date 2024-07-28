@@ -1,34 +1,44 @@
-<div class="table-container">
-  <table mat-table [dataSource]="empService.employees" class="mat-elevation-z8">
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let employee"> {{employee.id}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let employee"> {{employee.name}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="typeA">
-      <th mat-header-cell *matHeaderCellDef> Type A </th>
-      <td mat-cell *matCellDef="let employee"> {{employee.typeA}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="typeB">
-      <th mat-header-cell *matHeaderCellDef> Type B </th>
-      <td mat-cell *matCellDef="let employee"> {{employee.typeB}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let employee; let i = index">
-        <button mat-button (click)="openEditPopup(i)">Edit</button>
+<form [formGroup]="formGroup">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="employeeId">
+      <th mat-header-cell *matHeaderCellDef> Employee ID</th>
+      <td mat-cell *matCellDef="let element;let i = index">
+        <mat-form-field>
+          <input matInput formControlName="empId_{{element.id}}" [matAutocomplete]="auto" (input)="onInputId(element.id)">
+          <mat-autocomplete  #auto="matAutocomplete">
+            <mat-option *ngFor="let employee of filteredEmployees | async" [value]="employee.id" (onSelectionChange)="onOptionChanges($event,i)">
+              {{ employee.id }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
       </td>
     </ng-container>
-
+    <ng-container matColumnDef="employeeName">
+      <th mat-header-cell *matHeaderCellDef> Employee Name</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <mat-form-field>
+          <input  matInput formControlName="empName_{{element.name}}" [matAutocomplete]="autoName" (input)="onInputName(element.name)">
+          <mat-autocomplete #autoName="matAutocomplete">
+            <mat-option *ngFor="let employee of filteredEmployees | async" [value]="employee.name" (onSelectionChange)="onOptionChanges($event,i)">
+              {{ employee.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="typeA">
+      <th mat-header-cell *matHeaderCellDef> Type A</th>
+      <td mat-cell *matCellDef="let element"> {{ element.typeA }}</td>
+    </ng-container>
+    <ng-container matColumnDef="typeB">
+      <th mat-header-cell *matHeaderCellDef> Type B</th>
+      <td mat-cell *matCellDef="let element"> {{ element.typeB }}</td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+</form>
+<div>
+  <button mat-raised-button color="primary" (click)="openAddEmployeeDialog()">Add Employee</button>
 </div>
