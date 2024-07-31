@@ -70,31 +70,38 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
-    const emp1 = {
-      id: '1', name: 'John Doe', typeA: 'A1', typeB: 'B1'
-    }
-    const emp2 = {
-      id: '2', name: 'Jane Smith', typeA: 'A2', typeB: 'B2'
-    }
-    this.dataSource.data.push(emp1)
-    this.dataSource.data.push(emp2)
-
-    this.filteredEmpSubject.next(this.dataSource.data);
-    console.log(this.filteredEmployees)
     this.formGroup = new FormGroup({});
+    this.employeeService.getEmployees().subscribe(employees => {
+      this.dataSource.data = employees;
 
-    this.dataSource.data.forEach((employee, index) => {
-      const empIdControl = new FormControl();
-      const empNameControl = new FormControl();
+      this.dataSource.data.forEach((employee, index) => {
+        const empIdControl = new FormControl();
+        const empNameControl = new FormControl();
 
-      this.formGroup.addControl('empId_' + index, empIdControl);
-      this.formGroup.addControl('empName_' + index, empNameControl);
+        this.formGroup.addControl('empId_' + index, empIdControl);
+        this.formGroup.addControl('empName_' + index, empNameControl);
 
-      this.formGroup.get('empId_' + index)?.setValue(employee.id);
-      this.formGroup.get('empName_' + index)?.setValue(employee.name);
+        this.formGroup.get('empId_' + index)?.setValue(employee.id);
+        this.formGroup.get('empName_' + index)?.setValue(employee.name);
+        this.filteredEmpSubject.next(this.dataSource.data);
+        console.log(this.filteredEmployees)
 
 
+
+      });
     });
+    // const emp1 = {
+    //   id: '1', name: 'John Doe', typeA: 'A1', typeB: 'B1'
+    // }
+    // const emp2 = {
+    //   id: '2', name: 'Jane Smith', typeA: 'A2', typeB: 'B2'
+    // }
+    // this.dataSource.data.push(emp1)
+    // this.dataSource.data.push(emp2)
+
+
+
+
 
   }
 
